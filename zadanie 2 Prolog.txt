@@ -1,0 +1,112 @@
+
+--1.0
+rodzic(x, y).
+rodzic(y, x).
+
+niech_f(X, Y, Y) :- rodzic(X, Y).
+
+// 
+niech_f(y, Z, Z).
+
+--1.1
+A) brat
+B) kuzyn
+C) swaci
+D) macocha
+E) bracia w ktorych jeden ojciec ale rozne matki
+F) brat meza
+G) krzyzujace sie wiezi rodzinne (ojciec ma syna i corke, syn ma syna1 a syn1 ma syna2 ktory jest w zwiazku z corka ojca)
+--2.1
+kobieta(X) :- osoba(X), \+ mezczyzna(X).
+ojciec(X, Y) :- mezczyzna(X), rodzic(X, Y).
+matka(X, Y) :- kobieta(X), rodzic(X, Y).
+corka(X, Y) :- kobieta(X), matka(Y, X).
+brat_rodzony(X, Y) :- mezczyzna(X), matka(M, X), matka(M, Y), X \= Y.
+brat_przyrodni(X, Y) :- mezczyzna(X), matka(M, X), matka(M, Y), ojciec(O, X), ojciec(O2, Y), O \= O2, X \= Y.
+kuzyn(X, Y) :- mezczyzna(X), matka(M, X), matka(M, Y), ojciec(O, X), ojciec(O2, Y), O \= O2, X \= Y.
+dziadek_od_strony_ojca(X, Y) :- mezczyzna(X), matka(M, Y), ojciec(X, M).
+dziadek_od_strony_matki(X, Y) :- mezczyzna(X), matka(M, Y), ojciec(X, M).
+dziadek(X, Y) :- mezczyzna(X), (dziadek_od_strony_ojca(X, Y); dziadek_od_strony_matki(X, Y)).
+babcia(X, Y) :- kobieta(X), matka(M, Y), matka(X, M).
+wnuczka(X, Y) :- kobieta(X), dziadek(Y, X).
+przodek_do2pokolenia_wstecz(X, Y) :- rodzic(X, Y); dziadek(X, Y).
+przodek_do3pokolenia_wstecz(X, Y) :- rodzic(X, Y); dziadek(X, Y); pra_dziadek(X, Y).
+pra_dziadek(X, Y) :- mezczyzna(X), matka(M, Y), dziadek(X, M).
+--3.1 dla chetnych 1
+
+drzwi(a, b).
+drzwi(b, c).
+drzwi(c, d).
+drzwi(d, e).
+klucz(e, kluczE).
+otwiera(c, kluczE).
+
+
+szukaj_wyjscia(PokojPoczatkowy, PokojZKluczem, Klucz, PokojZWyjsciem) :-
+    PokojPoczatkowy = PokojZKluczem,
+    klucz(PokojZKluczem, Klucz),
+    otwiera(PokojZWyjsciem, Klucz),  
+    write([znalazlem_klucz, Klucz]), nl,   
+    write([przechodze_z, PokojZKluczem, do, PokojZWyjsciem]), nl.
+
+
+szukaj_wyjscia(PokojPoczatkowy, PokojZKluczem, Klucz, PokojZWyjsciem) :-   
+    drzwi(PokojPoczatkowy, PokojNastepny),    
+    write([przechodze_z, PokojPoczatkowy, do, PokojNastepny]), nl,
+    szukaj_wyjscia(PokojNastepny, PokojZKluczem, Klucz, PokojZWyjsciem).
+--4.1 dla chetnych 2
+ZADANIE 1
+a)
+1.czlowiek(Markus)
+2.pompejanczyk(Markus)
+3.pompejanczyk(X) > rzymianin(X)
+4.wladca(Cezar)
+5.rzymianin(X) > (lojalny_wobec_Cezara(X) ? nienawidzi_Cezara(X))
+6.?x ?y lojalny_wobec(x, y)
+7.probuje_zamachu(X, Y) > (wladca(Y) ? ¬lojalny_wobec(X, Y))
+8.probuje_zamachu(Markus, Cezar)
+b)
+nie ma bezposredniego stwierdzenia, ze Markus jest lojalny wobec Cezara. 
+Jednakze, jesli Markus probowal dokonac zamachu na Cezara,
+to oznacza, ze nie byl lojalny wobec Cezara.
+c)
+1.czlowiek(Markus)
+2.pompejanczyk(Markus)
+3.pompejanczyk(X) > rzymianin(X)
+4.wladca(Cezar)
+5.rzymianin(X) > (lojalny_wobec_Cezara(X) ? nienawidzi_Cezara(X))
+6.?x ?y lojalny_wobec(x, y)
+7.probuje_zamachu(X, Y) > (wladca(Y) ? ¬lojalny_wobec(X, Y))
+8.probuje_zamachu(Markus, Cezar)
+d)nie wiem 
+ZADANIE 2
+a/b)
+1.?x (pozywienie(X) > lubi(Jan, X))
+2.pozywienie(jablka)
+3.pozywienie(kurczak)
+4.?x?y (je(x, y) ? ¬zabija(x, y) > pozywienie(y))
+5.je(Adam, orzeszki) ? zyje(Adam)
+6.?x (je(Adam, X) > je(Basia, X))
+c/d) nie wiem
+ZADANIE 3
+    Fakt: urodzony(Markus, 25)
+    Fakt: niszczenie_Pompej(79)
+    Fakt: maksymalny_wiek(150)
+    Regula: zyje(X, Rok) < urodzony(X, RokUrodzenia), Rok > RokUrodzenia + maksymalny_wiek(MaksWiek) > falszywe
+
+Wnioskowanie, ze Markus nie zyje w roku 2021, mozna sformulowac jako:
+
+    zyje(Markus, 2021) jest falszywe, poniewaz 2021 > 25 + 150.
+
+
+
+
+
+
+
+
+
+
+
+
+
