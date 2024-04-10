@@ -15,7 +15,7 @@ C) swaci
 D) macocha
 E) bracia w ktorych jeden ojciec ale rozne matki
 F) brat meza
-G) krzyzujace sie wiezi rodzinne (ojciec ma syna i corke, syn ma syna1 a syn1 ma syna2 ktory jest w zwiazku z corka ojca)
+G)  dziadek  i pradziadek  krzyzujace sie wiezi rodzinne (ojciec ma syna i corke, syn ma syna1 a syn1 ma syna2 ktory jest w zwiazku z corka ojca) 
 --2.1
 kobieta(X) :- osoba(X), \+ mezczyzna(X).
 ojciec(X, Y) :- mezczyzna(X), rodzic(X, Y).
@@ -63,7 +63,7 @@ a)
 4.wladca(Cezar)
 5.rzymianin(X) > (lojalny_wobec_Cezara(X) ? nienawidzi_Cezara(X))
 6.?x ?y lojalny_wobec(x, y)
-7.probuje_zamachu(X, Y) > (wladca(Y) ? ¬lojalny_wobec(X, Y))
+7.probuje_zamachu(X, Y) > (wladca(Y) ? Å¹lojalny_wobec(X, Y))
 8.probuje_zamachu(Markus, Cezar)
 b)
 nie ma bezposredniego stwierdzenia, ze Markus jest lojalny wobec Cezara. 
@@ -76,7 +76,7 @@ c)
 4.wladca(Cezar)
 5.rzymianin(X) > (lojalny_wobec_Cezara(X) ? nienawidzi_Cezara(X))
 6.?x ?y lojalny_wobec(x, y)
-7.probuje_zamachu(X, Y) > (wladca(Y) ? ¬lojalny_wobec(X, Y))
+7.probuje_zamachu(X, Y) > (wladca(Y) ? Å¹lojalny_wobec(X, Y))
 8.probuje_zamachu(Markus, Cezar)
 d)nie wiem 
 ZADANIE 2
@@ -84,7 +84,7 @@ a/b)
 1.?x (pozywienie(X) > lubi(Jan, X))
 2.pozywienie(jablka)
 3.pozywienie(kurczak)
-4.?x?y (je(x, y) ? ¬zabija(x, y) > pozywienie(y))
+4.?x?y (je(x, y) ? Å¹zabija(x, y) > pozywienie(y))
 5.je(Adam, orzeszki) ? zyje(Adam)
 6.?x (je(Adam, X) > je(Basia, X))
 c/d) nie wiem
